@@ -32,13 +32,14 @@ jobs:
         id: version
         run: |
           # Priority: workflow_dispatch input > git tag (v2026.3.2) > latest
-          if [ \"${{ github.event_name }}\" = \"workflow_dispatch\" ]; then
-            echo \"openclaw_version=${{ github.event.inputs.openclaw_version }}\" >> $GITHUB_OUTPUT
-          elif [[ \"${{ github.ref }}\" == refs/tags/v* ]]; then
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "openclaw_version=${{ github.event.inputs.openclaw_version }}" >> $GITHUB_OUTPUT
+          elif [[ "${{ github.ref }}" == refs/tags/v* ]]; then
             # Strip 'v' prefix from tag: v2026.3.2 -> 2026.3.2
-            echo \"openclaw_version=${GITHUB_REF#refs/tags/v}\" >> $GITHUB_OUTPUT
+            VERSION="${GITHUB_REF#refs/tags/v}"
+            echo "openclaw_version=${VERSION}" >> $GITHUB_OUTPUT
           else
-            echo \"openclaw_version=latest\" >> $GITHUB_OUTPUT
+            echo "openclaw_version=latest" >> $GITHUB_OUTPUT
           fi
 
       - name: Log in to Container Registry
