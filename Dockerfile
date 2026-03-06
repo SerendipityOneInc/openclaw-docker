@@ -1,4 +1,5 @@
-FROM 1panel/openclaw:latest
+ARG OPENCLAW_VERSION=latest
+FROM 1panel/openclaw:${OPENCLAW_VERSION}
 
 # Install uv — ecap-skills scripts run via `uv run --with <deps>`
 # Install mcporter — MCP server CLI/daemon for external tool connections
